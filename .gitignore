@@ -1,3 +1,11 @@
+# vagrant folders
 .vagrant/
+
+# vim file extentions
 *.swp
 *.swo
+
+# formats for downloaded ovas/vms/isos
+*.zip
+*.ova
+*.iso
