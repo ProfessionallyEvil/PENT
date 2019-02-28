@@ -1,6 +1,3 @@
 [submodule "linux/metasploitable3"]
 	path = linux/metasploitable3
 	url = git@github.com:ProfessionallyEvil/metasploitable3.git
-[submodule "windows/metasploitable3"]
-	path = windows/metasploitable3
-	url = git@github.com:ProfessionallyEvil/metasploitable3.git
