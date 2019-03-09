@@ -6,6 +6,16 @@
 *.swo
 
 # formats for downloaded ovas/vms/isos
-*.zip
 *.ova
 *.iso
+*.zip
+*.box
+
+# folders with downloaded content
+metasploitable*_vm
+
+# ignoring log files
+*.log
+
+# vmware install script
+*.bundle
