@@ -57,7 +57,7 @@ vbox_conversion(){
 
 build(){
   vm="${1}"
-  packer build -parallel=true -var "current_metasploit=${vm}" -var "vmware_source_path=${vm}/${vm}_vm/Metasploitable.vmx" -var "vbox_source_path=./${vm}-vbox.ova" packer/old_metasploitable.json
+  packer build -var "headless_bool=true" -var "current_metasploit=${vm}" -var "vmware_source_path=${vm}/${vm}_vm/Metasploitable.vmx" -var "vbox_source_path=./${vm}-vbox.ova" packer/old_metasploitable.json
 }
 
 main(){
@@ -67,7 +67,9 @@ main(){
     vbox_conversion ${vm}
     build ${vm}
   done
-  # cleanup
+  echo "ready?"
+  read y
+  cleanup
 }
 
 main

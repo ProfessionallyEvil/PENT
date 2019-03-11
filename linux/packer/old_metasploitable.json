@@ -1,0 +1,48 @@
+{
+  "builders":[
+    {
+      "type": "vmware-vmx",
+      "headless":"{{user `headless_bool`}}",
+      "source_path": "{{user `vmware_source_path`}}",
+      "ssh_username": "msfadmin",
+      "ssh_password": "msfadmin"
+    },
+    {
+      "type": "virtualbox-ovf",
+      "headless":"{{user `headless_bool`}}",
+      "source_path": "{{user `vbox_source_path`}}",
+      "ssh_username": "msfadmin",
+      "ssh_password": "msfadmin"
+    }
+  ],
+  "provisioners":[
+    {
+      "environment_vars": [
+        "HOME_DIR=/home/msfadmin",
+        "SSH_USER=msfadmin"
+      ],
+      "execute_command": "echo 'msfadmin' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "scripts": [ 
+        "{{user `scripts_dir`}}/vagrant.sh",
+        "{{user `scripts_dir`}}/minimize.sh"
+      ],
+      "type":"shell"
+    }
+  ],
+  "post-processors":[
+    {
+      "type": "vagrant",
+      "compression_level": 9,
+      "output":"{{user `current_metasploit`}}/packer_{{.BuildName}}_{{.Provider}}.box",
+      "vagrantfile_template": "{{user `vagrant_template`}}"
+    }
+  ],
+  "variables":{
+    "vmware_source_path": "",
+    "vbox_source_path": "",
+    "current_metasploit":"",
+    "scripts_dir":"packer/scripts/",
+    "vagrant_template":"packer/old_metasploitable.vagrant",
+    "headless_bool":""
+  }
+}
