@@ -33,16 +33,14 @@
     {
       "type": "vagrant",
       "compression_level": 9,
-      "output":"{{user `current_metasploit`}}/packer_{{.BuildName}}_{{.Provider}}.box",
       "vagrantfile_template": "{{user `vagrant_template`}}"
     }
   ],
   "variables":{
     "vmware_source_path": "",
     "vbox_source_path": "",
-    "current_metasploit":"",
-    "scripts_dir":"packer/scripts/",
-    "vagrant_template":"packer/old_metasploitable.vagrant",
+    "scripts_dir":"../packer/scripts/",
+    "vagrant_template":"../packer/old_metasploitable.vagrant",
     "headless_bool":""
   }
 }

@@ -11,8 +11,8 @@ cleanup(){
     rm -rf output-virtualbox-ovf/
   fi
   for folder in "${metasploitable_array[@]}" ; do
-    ./vmx-vbox.sh ${folder}
     pushd ${folder}
+    ../vmx-vbox.sh ${folder}
     rm -rf "${folder}_vm"
     rm *.box
     popd
@@ -52,12 +52,17 @@ slight_tweaks(){
 vbox_conversion(){
   vm="${1}"
   metasploitable_folder="${vm}_vm"
-  ./vmx-vbox.sh ${vm} "${vm}/${metasploitable_folder}/Metasploitable.vmdk"
+
+  pushd $vm
+  ../vmx-vbox.sh ${vm} "./${metasploitable_folder}/Metasploitable.vmdk"
+  popd
 }
 
 build(){
   vm="${1}"
-  packer build -var "headless_bool=true" -var "current_metasploit=${vm}" -var "vmware_source_path=${vm}/${vm}_vm/Metasploitable.vmx" -var "vbox_source_path=./${vm}-vbox.ova" packer/old_metasploitable.json
+  pushd $vm
+  packer build -var "headless_bool=true" -var "vmware_source_path=./${vm}_vm/Metasploitable.vmx" -var "vbox_source_path=./${vm}-vbox.ova" ../packer/old_metasploitable.json
+  popd
 }
 
 main(){
@@ -65,7 +70,11 @@ main(){
   download
   for vm in "${metasploitable_array[@]}" ; do
     vbox_conversion ${vm}
-    build ${vm}
+    build ${vm} &
+  done
+  # waiting till done downloading files
+  while ps -aux | grep "${USER}" | grep -i '[p]acker' | grep metasploitable 1> /dev/null ; do
+    sleep 5s
   done
   echo "ready?"
   read y
