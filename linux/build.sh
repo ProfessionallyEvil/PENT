@@ -68,12 +68,11 @@ build(){
 }
 
 main(){
-  variable_file=$2
 
   download
   for vm in "${metasploitable_array[@]}" ; do
     vbox_conversion ${vm}
-    build ${vm} ${variable_file} &
+    build ${vm} &
   done
   # waiting till done downloading files
   while ps -aux | grep "${USER}" | grep -i '[p]acker' | grep metasploitable 1> /dev/null ; do
