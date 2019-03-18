@@ -25,5 +25,5 @@ time ./build.sh | tee build.log &
 
 pushd metasploitable3
 
-time ./build.sh ubuntu1404 | tee build.log &
-time ./build.sh windows2008 | tee build.log &
+time ./build.sh ubuntu1404 | tee build.log
+time ./build.sh windows2008 | tee build.log
