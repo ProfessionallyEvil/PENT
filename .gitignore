@@ -1,5 +1,7 @@
 # vagrant folders
 .vagrant/
+linux/packer/vagrant_files/*
+!linux/packer/vagrant_files/.gitkeep
 
 # vim file extentions
 *.swp
