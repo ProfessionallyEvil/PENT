@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -ex
-
+export variable_file="${1}"
 
 metasploitable_array=( "metasploitable1" "metasploitable2" )
 # handle vagrant and packer pre-reqs with metsaploitable3's scripts
@@ -67,11 +67,12 @@ build(){
 }
 
 main(){
+  variable_file=$2
 
   download
   for vm in "${metasploitable_array[@]}" ; do
     vbox_conversion ${vm}
-    build ${vm} &
+    build ${vm} ${variable_file} &
   done
   # waiting till done downloading files
   while ps -aux | grep "${USER}" | grep -i '[p]acker' | grep metasploitable 1> /dev/null ; do
