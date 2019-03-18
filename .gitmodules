@@ -1,3 +1,6 @@
 [submodule "linux/metasploitable3"]
 	path = linux/metasploitable3
 	url = https://github.com/ProfessionallyEvil/metasploitable3.git
+[submodule "windows"]
+	path = windows
+	url = https://github.com/ProfessionallyEvil/packer-windows.git
