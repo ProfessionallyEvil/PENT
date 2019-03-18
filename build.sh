@@ -22,6 +22,7 @@ export HEADLESS="$headless"
 printf '{"vm_version":"%s","vagrant_cloud_token":"%s"}\n' "$vm_version" "$vagrant_cloud_token" | jq . | tee variables.json
 
 variable_file=$(readlink -f variables.json)
+export variable_file="${2}"
 
 pushd linux
 
