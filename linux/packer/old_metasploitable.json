@@ -34,13 +34,15 @@
       "type": "vagrant",
       "compression_level": 9,
       "vagrantfile_template": "{{user `vagrant_template`}}"
-    }
-  ],
+    }  ],
   "variables":{
     "vmware_source_path": "",
     "vbox_source_path": "",
     "scripts_dir":"../packer/scripts/",
-    "vagrant_template":"../packer/old_metasploitable.vagrant",
-    "headless_bool":""
+    "vagrant_template":"",
+    "headless_bool":"",
+    "vm_name":"",
+    "vm_version":"",
+    "vagrant_cloud_token":""
   }
 }
