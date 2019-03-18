@@ -2,7 +2,6 @@
 
 set -ex
 
-export variable_file="${2}"
 
 metasploitable_array=( "metasploitable1" "metasploitable2" )
 # handle vagrant and packer pre-reqs with metsaploitable3's scripts
