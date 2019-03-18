@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -ex
 
 metasploitable_array=( "metasploitable1" "metasploitable2" )
 # handle vagrant and packer pre-reqs with metsaploitable3's scripts
@@ -61,9 +61,7 @@ vbox_conversion(){
 build(){
   vm="${1}"
   pushd $vm
-  cmd='packer build -var "vagrant_cloud_token=\"${VAGRANT_CLOUD_UPLOAD_TOKEN}\"" -var "vm_version=\"${VAGRANT_BOX_VM_VERSION}\"" -var "vm_name=\"ProfessionallyEvil/${vm}\"" -var "vagrant_template=../packer/vagrant_files/${vm}.vagrant" -var "headless_bool=true" -var "vmware_source_path=./${vm}_vm/Metasploitable.vmx" -var "vbox_source_path=./${vm}-vbox.ova" ../packer/old_metasploitable.json'
-  echo $cmd
-  eval $cmd
+  packer build -var "vagrant_cloud_token=\"${VAGRANT_CLOUD_UPLOAD_TOKEN}\"" -var "vm_version=\"${VAGRANT_BOX_VM_VERSION}\"" -var "vm_name=\"ProfessionallyEvil/${vm}\"" -var "vagrant_template=../packer/vagrant_files/${vm}.vagrant" -var "headless_bool=true" -var "vmware_source_path=./${vm}_vm/Metasploitable.vmx" -var "vbox_source_path=./${vm}-vbox.ova" ../packer/old_metasploitable.json
   popd
 }
 
