@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 echo "What is your vagrant token?"
-read VAGRANT_CLOUD_UPLOAD_TOKEN
+read vagrant_cloud_token
 
 echo "What verion is this for the boxes?"
-read VAGRANT_BOX_VM_VERSION
+read vm_version
 
 echo "Should this be headless [Y/n]"
 read headless
@@ -19,11 +19,15 @@ export VAGRANT_CLOUD_UPLOAD_TOKEN="${VAGRANT_CLOUD_UPLOAD_TOKEN}"
 export VAGRANT_BOX_VM_VERSION="${VAGRANT_BOX_VM_VERSION}"
 export HEADLESS="$headless"
 
+printf '{"vm_version":"%s","vagrant_cloud_token":"%s"}\n' "$vm_version" "$vagrant_cloud_token" | jq . | tee variables.json
+
+variable_file=$(readlink -f variables.json)
+
 pushd linux
 
-time ./build.sh | tee build.log &
+time ./build.sh $variable_file | tee build.log &
 
 pushd metasploitable3
 
-time ./build.sh ubuntu1404 | tee build.log
-time ./build.sh windows2008 | tee build.log
+time ./build.sh ubuntu1404 $variable_file | tee build.log
+time ./build.sh windows2008 $variable_file | tee build.log
