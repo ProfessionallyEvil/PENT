@@ -5,8 +5,12 @@ set -ex
 packer_dir='./packer'
 vagrantfiles_dir="${packer_dir}/vagrant_files"
 vagrantfile_template="${packer_dir}/old_metasploitable.vagrant"
+# dev
 PUBLIC_SUBNET='10.42.100'
 starting_IP=20
+# prod
+# PUBLIC_SUBNET='192.168.1'
+# starting_IP=5
 
 # making a backup
 cp ${vagrantfile_template}.orig ${vagrantfile_template}
