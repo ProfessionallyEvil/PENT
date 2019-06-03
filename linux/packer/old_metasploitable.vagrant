@@ -1,0 +1,13 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure("2") do |config|
+  # Admin user name and password
+  config.ssh.username = "SSH_USERNAME"
+  VM_PUBLIC_NETWORK='192.168.1'
+  config.vm.network "public_network",
+    ip: "#{VM_PUBLIC_NETWORK}.PUBLIC_LAST_OCTET",
+    bridge: [
+      "enp4s0",
+      "en0"
+    ]
+end

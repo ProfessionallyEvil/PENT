@@ -1,0 +1,4 @@
+projects used
+SamuraiWTF - websites for vulnerable websites
+bento - packer configs
+metasploitable 1,2,3 - vulnerable hosts

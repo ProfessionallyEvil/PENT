@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+IP_SUBNET='192.168.1'
+
+for i in $(grep define Vagrantfile | cut -d '"' -f 2); do
+	case $i in
+		msf1) 
+			last_octet='7'
+		;;
+		msf2) 
+			last_octet='8'
+		;;
+		msf3) 
+			last_octet='6'
+		;;
+		*)
+			break
+		;;
+	esac
+	vagrant ssh -c "sudo ip addr add \"${IP_SUBNET}.${last_octet}\"/24 dev  eth1 ; sudo ip link set up eth1" $i
+done

@@ -21,3 +21,6 @@ metasploitable*_vm
 
 # vmware install script
 *.bundle
+
+# secrets
+variables.json

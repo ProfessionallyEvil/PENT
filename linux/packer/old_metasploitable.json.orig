@@ -1,0 +1,55 @@
+{
+  "builders":[
+    {
+      "type": "vmware-vmx",
+      "headless":"{{user `headless_bool`}}",
+      "source_path": "{{user `vmware_source_path`}}",
+      "ssh_username": "msfadmin",
+      "ssh_password": "msfadmin"
+    },
+    {
+      "type": "virtualbox-ovf",
+      "headless":"{{user `headless_bool`}}",
+      "source_path": "{{user `vbox_source_path`}}",
+      "ssh_username": "msfadmin",
+      "ssh_password": "msfadmin"
+    }
+  ],
+  "provisioners":[
+    {
+      "environment_vars": [
+        "HOME_DIR=/home/msfadmin",
+        "SSH_USER=msfadmin"
+      ],
+      "execute_command": "echo 'msfadmin' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "scripts": [ 
+        "{{user `scripts_dir`}}/vagrant.sh",
+        "{{user `scripts_dir`}}/minimize.sh"
+      ],
+      "type":"shell"
+    }
+  ],
+  "post-processors":[
+    {
+      "type": "vagrant",
+      "compression_level": 9,
+      "vagrantfile_template": "{{user `vagrant_template`}}"
+    },
+    {
+      "type": "vagrant-cloud",
+      "box_tag": "{{user `vm_name`}}",
+      "access_token": "{{user `vagrant_cloud_token`}}",
+      "version": "{user `vm_version`}"
+    }
+  ],
+  "variables":{
+    "vmware_source_path": "",
+    "vbox_source_path": "",
+    "scripts_dir":"../packer/scripts/",
+    "vagrant_template":"",
+    "headless_bool":"",
+    "vm_name":"",
+    "vm_version":"",
+    "vagrant_cloud_token":""
+  }
+}
